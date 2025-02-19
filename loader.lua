@@ -21,7 +21,7 @@ local entities = {
 				Repair = false
 			},
 			Earthquake = {
-				Enabled = true
+				Enabled = false
 			},
 			CameraShake = {
 				Enabled = true,
@@ -54,7 +54,7 @@ local entities = {
 			Death = {
 				Type = "Guiding",
 				Hints = {"боб"},
-				Cause = ""
+				Cause = "Depth"
 			}
 		})
 
@@ -77,7 +77,7 @@ local entities = {
 				Repair = false
 			},
 			Earthquake = {
-				Enabled = true
+				Enabled = false
 			},
 			CameraShake = {
 				Enabled = true,
@@ -110,7 +110,7 @@ local entities = {
 			Death = {
 				Type = "Guiding",
 				Hints = {"БОБ"},
-				Cause = ""
+				Cause = "Speedster"
 			}
 		})
 
