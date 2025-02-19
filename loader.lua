@@ -191,6 +191,6 @@ msg.Text = "Activated"
 task.wait(1)
 msg:Destroy()
 
-while task.wait(20) do
+while task.wait(15) do
 	doorOpened()
 end
