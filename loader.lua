@@ -31,7 +31,7 @@ local entities = {
 				Enabled = false
 			},
 			CameraShake = {
-				Enabled = true,
+				Enabled = false,
 				Range = 100,
 				Values = {5, 15, 0.1, 1}
 			},
@@ -53,7 +53,7 @@ local entities = {
 				Amount = 100
 			},
 			Crucifixion = {
-				Enabled = true,
+				Enabled = false,
 				Range = 40,
 				Resist = false,
 				Break = true
@@ -87,7 +87,7 @@ local entities = {
 				Enabled = false
 			},
 			CameraShake = {
-				Enabled = true,
+				Enabled = false,
 				Range = 100,
 				Values = {5, 15, 0.1, 1}
 			},
@@ -109,14 +109,14 @@ local entities = {
 				Amount = 100
 			},
 			Crucifixion = {
-				Enabled = true,
+				Enabled = false,
 				Range = 40,
 				Resist = false,
 				Break = true
 			},
 			Death = {
 				Type = "Guiding",
-				Hints = {"БОБ"},
+				Hints = {"bob"},
 				Cause = "Speedster"
 			}
 		})
@@ -224,7 +224,9 @@ msg.Text = "Activated"
 task.wait(1)
 msg:Destroy()
 
-LatestRoom.Changed:Connect(doorOpened)
+LatestRoom.Changed:Connect(function()
+if math.random(1,2) == 1 then doorOpened() end
+end)
 
 while task.wait(20) do
 	doorOpened()
