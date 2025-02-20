@@ -127,12 +127,12 @@ local entities = {
 	["ReverseEyes"] = function()
 		local currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
-		local entity:Model = LoadCustomInstance("rbxassetid://121824133881470")
+		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm") --LoadCustomInstance("rbxassetid://121824133881470")
 		print("loaded")
 		task.wait(0.5)
 		entity.Parent = workspace
 		print("parented")
-		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 3, 0)
+		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 7.5, 0)
 		print("positioned")
 		local active = true
 		LatestRoom.Changed:Once(function()
