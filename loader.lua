@@ -153,7 +153,7 @@ local entities = {
 local weightedFunctions = {
 	{func = entities.Depth, weight = 10},
 	{func = entities.A60, weight = 5},
-	{func = entities.ReverseEyes, weight = 50},
+	{func = entities.ReverseEyes, weight = 7},
 }
 
 local totalWeight = 0
