@@ -13,14 +13,14 @@ local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom
 local vynixuModules = {
 	Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
 }
-local assets = {
-	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/blob/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm?raw=true")
-}
-local moduleScripts = {
-	Module_Events = require(game.ReplicatedStorage.ClientModules.Module_Events),
-	Main_Game = require(Player.PlayerGui.MainUI.Initiator.Main_Game),
-	Earthquake = require(remotesFolder.RequestAsset:InvokeServer("Earthquake"))
-}
+--local assets = {
+--	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/blob/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm?raw=true")
+--}
+--local moduleScripts = {
+--	Module_Events = require(game.ReplicatedStorage.ClientModules.Module_Events),
+--	Main_Game = require(Player.PlayerGui.MainUI.Initiator.Main_Game),
+--	Earthquake = require(remotesFolder.RequestAsset:InvokeServer("Earthquake"))
+--}
 
 function DamagePlayer(damage: number, cause, hints)
 	if Player.Character.Humanoid.Health > 0 then
@@ -190,12 +190,17 @@ local entities = {
 		if workspace:FindFirstChild("Hunger") or game.ReplicatedStorage:FindFirstChild("Hunger") then return end
 		-- if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
 		local currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
+		print("1")
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
+		print("2")
 		local entity:Model = LoadCustomInstance(Path .. "hunger" .. ".rbxm")
+		print("3")
 		task.wait(0.5)
 		entity.Parent = game.ReplicatedStorage
+		print("4")
 		entity.Name = "Hunger"
 		entity.SoundGroup.SpawnSound:Play()
+		print("5")
 		task.wait(17)
 		for i, v in pairs(currentroom:GetDescendants()) do
 			if v:IsA("Light") then
