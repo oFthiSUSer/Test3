@@ -13,14 +13,14 @@ local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom
 local vynixuModules = {
 	Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
 }
---local assets = {
---	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/blob/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm?raw=true")
---}
---local moduleScripts = {
---	Module_Events = require(game.ReplicatedStorage.ClientModules.Module_Events),
---	Main_Game = require(Player.PlayerGui.MainUI.Initiator.Main_Game),
---	Earthquake = require(remotesFolder.RequestAsset:InvokeServer("Earthquake"))
---}
+local assets = {
+	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/blob/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm?raw=true")
+}
+local moduleScripts = {
+	Module_Events = require(game.ReplicatedStorage.ClientModules.Module_Events),
+	Main_Game = require(Player.PlayerGui.MainUI.Initiator.Main_Game),
+	Earthquake = require(remotesFolder.RequestAsset:InvokeServer("Earthquake"))
+}
 
 function DamagePlayer(damage: number, cause, hints)
 	if Player.Character.Humanoid.Health > 0 then
