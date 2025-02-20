@@ -317,6 +317,6 @@ LatestRoom.Changed:Connect(function()
 		end
 end)
 
-while task.wait(35) do --35
+while task.wait(20) do --35
 	doorOpened()
 end
