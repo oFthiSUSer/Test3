@@ -22,7 +22,7 @@ local moduleScripts = {
 	Earthquake = require(remotesFolder.RequestAsset:InvokeServer("Earthquake"))
 }
 
-function DamagePlayer(damage: number, cause, hints)
+function DamageAPlayer(damage: number, cause, hints)
 	if Player.Character.Humanoid.Health > 0 then
 		local newHealth = math.clamp(Player.Character.Humanoid.Health - damage, 0, Player.Character.Humanoid.MaxHealth)
 
@@ -179,13 +179,13 @@ local entities = {
 		while active do
 			local isOnScreen = select(2, camera:WorldToViewportPoint(entity:FindFirstChildWhichIsA("BasePart").Position));
 			if not isOnScreen then
-				DamagePlayer(5, "Reverse Eyes", {"BOBIK"})
+				DamageAPlayer(5, "Reverse Eyes", {"BOBIK"})
 			end
 			task.wait(0.25)
 		end
 		entity:Destroy()
 	end,
-	
+
 	["Hunger"] = function()
 		if workspace:FindFirstChild("Hunger") or game.ReplicatedStorage:FindFirstChild("Hunger") then return end
 		-- if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
@@ -209,7 +209,7 @@ local entities = {
 		entity.SoundGroup.Thud:Play()
 		entity:FindFirstChildWhichIsA("BasePart").Ambience.Playing = true
 		task.wait(0.5)
-		
+
 		local active = true
 		LatestRoom.Changed:Once(function()
 			if not entity then return end
@@ -220,7 +220,7 @@ local entities = {
 			local isOnScreen = select(2, camera:WorldToViewportPoint(entity:FindFirstChildWhichIsA("BasePart").Position));
 			if isOnScreen then
 				entity.SoundGroup.ThudLoud:Play()
-				DamagePlayer(90, "Hunger", {"Test BOB"})
+				DamageAPlayer(90, "Hunger", {"Test BOB"})
 				active = false
 			end
 		end
@@ -312,9 +312,9 @@ task.wait(1)
 msg:Destroy()
 
 LatestRoom.Changed:Connect(function()
-		if math.random(1,3) == 1 then
-			doorOpened()
-		end
+	if math.random(1,3) == 1 then
+		doorOpened()
+	end
 end)
 
 while task.wait(20) do --35
