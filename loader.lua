@@ -226,6 +226,6 @@ msg:Destroy()
 
 LatestRoom.Changed:Connect(doorOpened)
 
-while task.wait(35) do
+while task.wait(0.5) do --35
 	doorOpened()
 end
