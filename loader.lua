@@ -311,8 +311,8 @@ msg.Text = "Activated"
 task.wait(1)
 msg:Destroy()
 
-Player.Chatted:Connect(function(msg)
-	if msg.lower() == "hunger" then
+LatestRoom.Changed:Connect(function()
+	if LatestRoom.Value == 5 then
 		entities.Hunger()
 	end
 end)
