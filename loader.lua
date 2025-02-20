@@ -190,23 +190,20 @@ local entities = {
 		if workspace:FindFirstChild("Hunger") or game.ReplicatedStorage:FindFirstChild("Hunger") then return end
 		-- if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
 		local currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
-		print("1")
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
-		print("2")
 		local entity:Model = LoadCustomInstance(Path .. "hunger" .. ".rbxm")
-		print("3")
 		task.wait(0.5)
 		entity.Parent = game.ReplicatedStorage
-		print("4")
 		entity.Name = "Hunger"
 		entity.SoundGroup.SpawnSound:Play()
-		print("5")
 		task.wait(17)
 		for i, v in pairs(currentroom:GetDescendants()) do
 			if v:IsA("Light") then
 				v.Enabled = false
 			end
 		end
+		currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
+		center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		entity.Parent = workspace
 		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 6, 0)
 		entity.SoundGroup.Thud:Play()
@@ -314,14 +311,8 @@ msg.Text = "Activated"
 task.wait(1)
 msg:Destroy()
 
-LatestRoom.Changed:Connect(function()
-	if LatestRoom.Value == 5 then
-		entities.Hunger()
-	end
-end)
+LatestRoom.Changed:Connect(doorOpened)
 
---LatestRoom.Changed:Connect(doorOpened)
-
-while task.wait(35) do --35
-	--doorOpened()
+while task.wait(30) do --35
+	doorOpened()
 end
