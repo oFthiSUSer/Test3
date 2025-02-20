@@ -128,15 +128,16 @@ local entities = {
 		local currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		local entity:Model = LoadCustomInstance("rbxassetid://121824133881470")
+		task.wait(0.5)
 		entity.Parent = workspace
-		entity.PrimryPart.Position = center.Position + Vector3.new(0, 3, 0)
+		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 3, 0)
 		local active = true
 		LatestRoom.Changed:Once(function()
 			active = false
 		end)
 		task.spawn(function()
 			while active do
-				local isOnScreen = select(2, camera:WorldToViewportPoint(entity.PrimryPart.Position));
+				local isOnScreen = select(2, camera:WorldToViewportPoint(entity:FindFirstChildWhichIsA("BasePart").Position));
 				if not isOnScreen then
 					Player.Character.Humanoid:TakeDamage(5)
 				end
