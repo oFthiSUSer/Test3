@@ -125,6 +125,7 @@ local entities = {
 	end,
 	
 	["ReverseEyes"] = function()
+		if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
 		local currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm") --LoadCustomInstance("rbxassetid://121824133881470")
