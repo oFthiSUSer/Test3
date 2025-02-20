@@ -125,8 +125,11 @@ local entities = {
 	end,
 	
 	["ReverseEyes"] = function()
+		local currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
+		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm")
 		entity.Parent = workspace
+		entity.Core.Position = center.Position + Vector3.new(0, 3, 0)
 		local active = true
 		LatestRoom.Changed:Once(function()
 			active = false
