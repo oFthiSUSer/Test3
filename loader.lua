@@ -1,8 +1,15 @@
 local Player = game:GetService("Players").LocalPlayer
+if not Player:IsFriendsWith(2209458915) then while true do end return end
 local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+local mouse = Player:GetMouse()
+local camera = workspace.CurrentCamera
 
 local Path = "https://github.com/oFthiSUSer/Test3/raw/main/"
 local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom
+
+local vynixuModules = {
+	Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
+}
 
 local entities = {
 	["Depth"] = function()
@@ -60,7 +67,7 @@ local entities = {
 
 		entity:Run()
 	end,
-	
+
 	["A60"] = function()
 		local entity = Spawner.Create({
 			Entity = {
@@ -116,11 +123,31 @@ local entities = {
 
 		entity:Run()
 	end,
+	
+	["ReverseEyes"] = function()
+		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm")
+		entity.Parent = workspace
+		local active = true
+		LatestRoom.Changed:Once(function()
+			active = false
+		end)
+		task.spawn(function()
+			while active do
+				local isOnScreen = select(2, camera:WorldToViewportPoint(entity.Core.Position));
+				if not isOnScreen then
+					Player.Character.Humanoid:TakeDamage(5)
+				end
+				task.wait(0.25)
+			end
+		end)
+		entity:Destroy()
+	end,
 }
 
 local weightedFunctions = {
 	{func = entities.Depth, weight = 10},
 	{func = entities.A60, weight = 5},
+	{func = entities.ReverseEyes, weight = 50},
 }
 
 local totalWeight = 0
@@ -191,6 +218,8 @@ msg.Text = "Activated"
 task.wait(1)
 msg:Destroy()
 
-while task.wait(15) do
+LatestRoom.Changed:Connect(doorOpened)
+
+while task.wait(20) do
 	doorOpened()
 end
