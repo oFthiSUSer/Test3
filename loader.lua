@@ -224,10 +224,8 @@ msg.Text = "Activated"
 task.wait(1)
 msg:Destroy()
 
-LatestRoom.Changed:Connect(function()
-if math.random(1,2) == 1 then doorOpened() end
-end)
+LatestRoom.Changed:Connect(doorOpened)
 
-while task.wait(20) do
+while task.wait(35) do
 	doorOpened()
 end
