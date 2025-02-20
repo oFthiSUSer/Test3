@@ -129,14 +129,14 @@ local entities = {
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm")
 		entity.Parent = workspace
-		entity.Core.Position = center.Position + Vector3.new(0, 3, 0)
+		entity.PrimryPart.Position = center.Position + Vector3.new(0, 3, 0)
 		local active = true
 		LatestRoom.Changed:Once(function()
 			active = false
 		end)
 		task.spawn(function()
 			while active do
-				local isOnScreen = select(2, camera:WorldToViewportPoint(entity.Core.Position));
+				local isOnScreen = select(2, camera:WorldToViewportPoint(entity.PrimryPart.Position));
 				if not isOnScreen then
 					Player.Character.Humanoid:TakeDamage(5)
 				end
