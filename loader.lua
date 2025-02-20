@@ -44,7 +44,7 @@ function DamagePlayer(damage: number, cause, hints)
 		end
 
 		-- Update health
-		Player.Character.Humanoid.Health.Health = newHealth
+		Player.Character.Humanoid.Health = newHealth
 	end
 end
 
