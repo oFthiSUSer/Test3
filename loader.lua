@@ -24,7 +24,7 @@ local entities = {
 					Enabled = true,
 					Duration = 1
 				},
-				Shatter = true,
+				Shatter = false,
 				Repair = false
 			},
 			Earthquake = {
@@ -60,7 +60,7 @@ local entities = {
 			},
 			Death = {
 				Type = "Guiding",
-				Hints = {"боб"},
+				Hints = {"BOB"},
 				Cause = "Depth"
 			}
 		})
@@ -80,7 +80,7 @@ local entities = {
 					Enabled = true,
 					Duration = 1
 				},
-				Shatter = true,
+				Shatter = false,
 				Repair = false
 			},
 			Earthquake = {
