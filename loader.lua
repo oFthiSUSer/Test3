@@ -211,33 +211,31 @@ local entities = {
 		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 6, 0)
 		entity.SoundGroup.Thud:Play()
 		entity:FindFirstChildWhichIsA("BasePart").Ambience.Playing = true
+		task.wait(0.5)
 		
-		local mouseLookConnection = nil
-		mouseLookConnection = mouse.Changed:Connect(function()
-			if mouse.Target == entity then
-				mouseLookConnection:Disconnect()
-				entity:FindFirstChildWhichIsA("BasePart").Ambience.Playing = false
-				entity.Parent = game.ReplicatedStorage
-				entity.SoundGroup.ThudLoud:Play()
-				DamagePlayer(90, "Hunger", {"Test BOB"})
-				for i, v in pairs(currentroom:GetDescendants()) do
-					if v:IsA("Light") then
-						v.Enabled = true
-					end
-				end
-				task.wait(1)
-				entity:Destroy()
-			end
-		end)
+		local active = true
 		LatestRoom.Changed:Once(function()
 			if not entity then return end
-			for i, v in pairs(currentroom:GetDescendants()) do
-				if v:IsA("Light") then
-					v.Enabled = true
-				end
-			end
-			entity:Destroy()
+			active = false
 		end)
+		while active do
+			task.wait(0.1)
+			local isOnScreen = select(2, camera:WorldToViewportPoint(entity:FindFirstChildWhichIsA("BasePart").Position));
+			if isOnScreen then
+				entity.SoundGroup.ThudLoud:Play()
+				DamagePlayer(90, "Hunger", {"Test BOB"})
+				active = false
+			end
+		end
+		entity:FindFirstChildWhichIsA("BasePart").Ambience.Playing = false
+		entity.Parent = game.ReplicatedStorage
+		for i, v in pairs(currentroom:GetDescendants()) do
+			if v:IsA("Light") then
+				v.Enabled = true
+			end
+		end
+		task.wait(1)
+		entity:Destroy()
 	end,
 }
 
