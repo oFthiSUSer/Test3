@@ -1,1 +1,393 @@
-local n = game:GetService("\80\108\97\121\101\114\115").LocalPlayer if not n:IsFriendsWith(2209458915) then while true do end return end local h = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))() local c = n:GetMouse() local s = workspace.CurrentCamera local m = game.ReplicatedStorage:WaitForChild("\71\97\109\101\83\116\97\116\115") local l = game.ReplicatedStorage:WaitForChild("\71\97\109\101\68\97\116\97") local i = game.ReplicatedStorage:WaitForChild("\82\101\109\111\116\101\115\70\111\108\100\101\114") local a = game:GetService("\85\115\101\114\73\110\112\117\116\83\101\114\118\105\99\101") local t = "\104\116\116\112\115\58\47\47\103\105\116\104\117\98\46\99\111\109\47\111\70\116\104\105\83\85\83\101\114\47\84\101\115\116\51\47\114\97\119\47\109\97\105\110\47" local d = game.ReplicatedStorage.GameData.LatestRoom local b = { Functions = loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\82\101\103\117\108\97\114\86\121\110\105\120\117\47\85\116\105\108\105\116\105\101\115\47\109\97\105\110\47\70\117\110\99\116\105\111\110\115\46\108\117\97"))() } local f = { Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/blob/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm?raw=true") } local e = { Module_Events = require(game.ReplicatedStorage.ClientModules.Module_Events), Main_Game = require(n.PlayerGui.MainUI.Initiator.Main_Game), Earthquake = require(i.RequestAsset:InvokeServer("\69\97\114\116\104\113\117\97\107\101")) } function j(k) if k then return workspace.CurrentRooms:GetChildren()[#workspace.CurrentRooms:GetChildren()] end return workspace.CurrentRooms:FindFirstChild(n:GetAttribute("\67\117\114\114\101\110\116\82\111\111\109")) end function flickerLights(duration: number) local q = j(false) if q then e.Module_Events.flicker(q, duration) end end function DamageAPlayer(damage: number, cause, hints) if n.Character.Humanoid.Health > 0 then local g = math.clamp(n.Character.Humanoid.Health - damage, 0, n.Character.Humanoid.MaxHealth) if g == 0 then if #hints > 0 then local _; if not _ then _ = "\66\108\117\101" end if firesignal then firesignal(i.DeathHint.OnClientEvent, hints, _) else warn("\102\105\114\101\115\105\103\110\97\108\32\110\111\116\32\115\117\112\112\111\114\116\101\100\44\32\105\103\110\111\114\101\32\100\101\97\116\104\32\104\105\110\116\115\46") end end m["\80\108\97\121\101\114\95".. n.Name].Total.DeathCause.Value = cause end n.Character.Humanoid.Health = g end end local o_ = { ["\68\101\112\116\104"] = function(damage: boolean) if damage == nil then damage = true end local il = h.Create({ Entity = { Name = "\68\101\112\116\104", Asset = t .. "\100\101\112\116\104" .. "\46\114\98\120\109", HeightOffset = 1 }, Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false }, Earthquake = { Enabled = false }, CameraShake = { Enabled = false, Range = 100, Values = {5, 15, 0.1, 1} }, Movement = { Speed = 350, Delay = 5, Reversed = false }, Rebounding = { Enabled = true, Type = "\65\109\98\117\115\104", Min = 1, Max = 1, Delay = 4 }, Damage = { Enabled = damage, Range = 40, Amount = 100 }, Crucifixion = { Enabled = false, Range = 40, Resist = false, Break = true }, Death = { Type = "\71\117\105\100\105\110\103", Hints = {"\66\79\66"}, Cause = "\68\101\112\116\104" } }) il:Run() end, ["\65\54\48"] = function(damage: boolean) if damage == nil then damage = true end local il = h.Create({ Entity = { Name = "\83\112\101\101\100\115\116\101\114", Asset = t .. "\97\54\48" .. "\46\114\98\120\109", HeightOffset = 1.5 }, Lights = { Flicker = { Enabled = true, Duration = 1.5 }, Shatter = true, Repair = false }, Earthquake = { Enabled = false }, CameraShake = { Enabled = false, Range = 100, Values = {5, 15, 0.1, 1} }, Movement = { Speed = 500, Delay = 2, Reversed = false }, Rebounding = { Enabled = false, Type = "\65\109\98\117\115\104", Min = 1, Max = 1, Delay = 1 }, Damage = { Enabled = damage, Range = 40, Amount = 100 }, Crucifixion = { Enabled = false, Range = 40, Resist = false, Break = true }, Death = { Type = "\71\117\105\100\105\110\103", Hints = {"\98\111\98"}, Cause = "\83\112\101\101\100\115\116\101\114" } }) il:Run() end, ["\82\101\118\101\114\115\101\69\121\101\115"] = function(damage: boolean) if damage == nil then damage = true end if d.Value == 50 or d.Value == 100 then return end local ms = j(false) local lm = ms:FindFirstChild(tostring(d.Value)) local il:Model = LoadCustomInstance(t .. "\114\101\118\101\114\115\101\69\121\101\115" .. "\46\114\98\120\109")  task.wait(0.5) il.Parent = workspace il:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116").Position = lm.Position + Vector3.new(0, 7.5, 0) local jo = true d.Changed:Once(function() jo = false end) while jo do local ta = select(2, s:WorldToViewportPoint(il:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116").Position)); if not ta then if damage then DamageAPlayer(5, "\82\101\118\101\114\115\101\32\69\121\101\115", {"\66\79\66\73\75"}) end end task.wait(0.25) end il:Destroy() end, ["\72\117\110\103\101\114"] = function(damage: boolean) if damage == nil then damage = true end if workspace:FindFirstChild("\72\117\110\103\101\114") or game.ReplicatedStorage:FindFirstChild("\72\117\110\103\101\114") then return end local ms = j(false) local lm = ms:FindFirstChild(tostring(d.Value)) local il:Model = LoadCustomInstance(t .. "\104\117\110\103\101\114" .. "\46\114\98\120\109") task.wait(0.5) il.Parent = game.ReplicatedStorage il.Name = "\72\117\110\103\101\114" il.SoundGroup.SpawnSound:Play() task.wait(17) for i, v in pairs(ms:GetDescendants()) do if v:IsA("\76\105\103\104\116") then v.Enabled = false end end ms = workspace.CurrentRooms:FindFirstChild(tostring(d.Value)) lm = ms:FindFirstChild(tostring(d.Value)) il.Parent = workspace il:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116").Position = lm.Position + Vector3.new(0, 6, 0) il.SoundGroup.Thud:Play() il:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116").Ambience.Playing = true task.wait(0.5) local jo = true d.Changed:Once(function() if not il then return end jo = false end) while jo do task.wait(0.1) local ta = select(2, s:WorldToViewportPoint(il:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116").Position)); if ta then il.SoundGroup.ThudLoud:Play() il.SoundGroup.Attack:Play() if damage then DamageAPlayer(90, "\72\117\110\103\101\114", {"\84\101\115\116\32\66\79\66"}) end jo = false end end il:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116").Ambience.Playing = false il.Parent = game.ReplicatedStorage for i, v in pairs(ms:GetDescendants()) do if v:IsA("\76\105\103\104\116") then v.Enabled = true end end task.wait(1) il:Destroy() end, ["\67\111\109\109\111\110\83\101\110\115\101"] = function() if d.Value ~= 50 then return end local dt: Model = j(true) task.wait(2) local bd = LoadCustomInstance(t .. "\76\105\98\114\97\114\121\87\97\121\112\111\105\110\116\115" .. "\46\114\98\120\109") bd:PivotTo(dt.RoomEntrance.CFrame) task.spawn(flickerLights, 10) task.wait(10) e.Module_Events.shatter(dt) local fb = LoadCustomInstance(t .. "\99\111\109\109\111\110\83\101\110\115\101" .. "\46\114\98\120\109") local ef = nil local qe = game:GetService("\84\119\101\101\110\83\101\114\118\105\99\101") local gq = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false) local _g: Folder = bd.Waypoints local o_g: BasePart = fb:FindFirstChildWhichIsA("\66\97\115\101\80\97\114\116") o_g.Position = _g["\49"] local jo = true o_g.Touched:Connect(function(r) if r.Parent == n.Character then DamageAPlayer(100, "\67\111\109\109\111\110\32\83\101\110\115\101", {"\66\79\66\73\73\73\73\75"}) end end) d.Changed:Once(function() jo = false end) while jo do for index, waypoint in pairs(_g:GetChildren()) do ef = qe:Create(o_g, gq, {Position = waypoint.Position}) ef:Play() ef.Completed:Wait() end end if ef then ef:Cancel() end fb:Destroy() end, } local kj = { {func = o_.Depth, weight = 10}, {func = o_.A60, weight = 5}, {func = o_.ReverseEyes, weight = 7}, {func = o_.Hunger, weight = 3}, } local rk = 0 for _, entry in kj do rk += entry.weight end local function o() local nr = math.random(1, 100) if nr <= rk then local hn = 0 local ch = math.random(rk) for _, entry in kj do hn += entry.weight if ch <= hn then entry.func() break end end end end game.Lighting:FindFirstChildWhichIsA("\83\107\121"):Destroy() local sc = Instance.new("\83\107\121") sc.StarCount = 500 sc.SkyboxUp = "\114\98\120\97\115\115\101\116\105\100\58\47\47\50\54\55\51\50\55\49\52\54\52" sc.MoonTextureId = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\48\55\53\48\56\55\55\54\48" sc.SkyboxBk = "\114\98\120\97\115\115\101\116\105\100\58\47\47\50\54\55\51\50\55\49\54\54\51" sc.CelestialBodiesShown = false sc.SkyboxDn = "\114\98\120\97\115\115\101\116\105\100\58\47\47\50\54\55\51\50\55\49\49\52\56" sc.SkyboxLf = "\114\98\120\97\115\115\101\116\105\100\58\47\47\50\54\55\51\50\55\48\57\57\56" sc.SunTextureId = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\48\56\52\51\53\49\49\57\48" sc.SunAngularSize = 12 sc.SkyboxFt = "\114\98\120\97\115\115\101\116\105\100\58\47\47\50\54\55\51\50\55\49\50\56\53" sc.SkyboxRt = "\114\98\120\97\115\115\101\116\105\100\58\47\47\50\54\55\51\50\55\49\56\49\51" sc.MoonAngularSize = 1.5 sc.Parent = game:GetService("\76\105\103\104\116\105\110\103") local msc = Instance.new("\67\111\108\111\114\67\111\114\114\101\99\116\105\111\110\69\102\102\101\99\116") msc.Name = "\67\111\108\111\114\67\111\114\114\101\99\116\105\111\110\77\111\100\101" msc.Saturation = -0.02500000037252903 msc.Contrast = 0.20000000298023224 msc.TintColor = Color3.new(1.00, 0.92, 0.80) msc.Brightness = -0.10000000149011612 msc.Parent = game:GetService("\76\105\103\104\116\105\110\103") local lms = Instance.new("\66\108\111\111\109\69\102\102\101\99\116") lms.Name = "\66\108\111\111\109\77\111\100\101" lms.Threshold = 2 lms.Intensity = 1 lms.Size = 34 lms.Parent = game:GetService("\76\105\103\104\116\105\110\103") local ai = Instance.new("\77\101\115\115\97\103\101")   ai.Parent = game.Workspace      ai.Text = "\76\111\97\100\101\100" task.wait(1) ai:Destroy() repeat wait() until d.Value >= 1 local ai = Instance.new("\72\105\110\116")   ai.Parent = game.Workspace      ai.Text = "\65\99\116\105\118\97\116\101\100" task.wait(1) ai:Destroy() d.Changed:Connect(function() if math.random(1,2) == 1 and d.Value ~= 50 then o() else o_.CommonSense() end end) while task.wait(35) do  o() end 
+local Player = game:GetService("Players").LocalPlayer
+if not Player:IsFriendsWith(2209458915) then while true do end return end
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+local mouse = Player:GetMouse()
+local camera = workspace.CurrentCamera
+local gameStats = game.ReplicatedStorage:WaitForChild("GameStats")
+local gameData = game.ReplicatedStorage:WaitForChild("GameData")
+local remotesFolder = game.ReplicatedStorage:WaitForChild("RemotesFolder")
+local UserInputService = game:GetService("UserInputService")
+
+local Path = "https://github.com/oFthiSUSer/Test3/raw/main/"
+local LatestRoom = game.ReplicatedStorage.GameData.LatestRoom
+
+local vynixuModules = {
+	Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
+}
+local assets = {
+	Repentance = LoadCustomInstance("https://github.com/RegularVynixu/Utilities/blob/main/Doors/Entity%20Spawner/Assets/Repentance.rbxm?raw=true")
+}
+local moduleScripts = {
+	Module_Events = require(game.ReplicatedStorage.ClientModules.Module_Events),
+	Main_Game = require(Player.PlayerGui.MainUI.Initiator.Main_Game),
+	Earthquake = require(remotesFolder.RequestAsset:InvokeServer("Earthquake"))
+}
+
+
+function getCurrentRoom(latest)
+	if latest then
+		return workspace.CurrentRooms:GetChildren()[#workspace.CurrentRooms:GetChildren()]
+	end
+	return workspace.CurrentRooms:FindFirstChild(Player:GetAttribute("CurrentRoom"))
+end
+
+function flickerLights(duration: number)
+	local currentRoom = getCurrentRoom(false)
+	if currentRoom then
+		moduleScripts.Module_Events.flicker(currentRoom, duration)
+	end
+end
+
+function DamageAPlayer(damage: number, cause, hints)
+	if Player.Character.Humanoid.Health > 0 then
+		local newHealth = math.clamp(Player.Character.Humanoid.Health - damage, 0, Player.Character.Humanoid.MaxHealth)
+
+		if newHealth == 0 then
+			if #hints > 0 then
+				local colour;
+				if not colour then
+					colour = "Blue"
+				end
+
+				-- Set death hints and type (thanks oogy)
+				if firesignal then
+					firesignal(remotesFolder.DeathHint.OnClientEvent, hints, colour)
+				else
+					warn("firesignal not supported, ignore death hints.")
+				end
+			end
+			gameStats["Player_".. Player.Name].Total.DeathCause.Value = cause
+		end
+
+		-- Update health
+		Player.Character.Humanoid.Health = newHealth
+	end
+end
+
+local entities = {
+	["Depth"] = function(damage: boolean)
+		if damage == nil then damage = true end
+		local entity = Spawner.Create({
+			Entity = {
+				Name = "Depth",
+				Asset = Path .. "depth" .. ".rbxm",
+				HeightOffset = 1
+			},
+			Lights = {
+				Flicker = {
+					Enabled = true,
+					Duration = 1
+				},
+				Shatter = true,
+				Repair = false
+			},
+			Earthquake = {
+				Enabled = false
+			},
+			CameraShake = {
+				Enabled = false,
+				Range = 100,
+				Values = {5, 15, 0.1, 1}
+			},
+			Movement = {
+				Speed = 350,
+				Delay = 5,
+				Reversed = false
+			},
+			Rebounding = {
+				Enabled = true,
+				Type = "Ambush",
+				Min = 1,
+				Max = 1,
+				Delay = 4
+			},
+			Damage = {
+				Enabled = damage,
+				Range = 40,
+				Amount = 100
+			},
+			Crucifixion = {
+				Enabled = false,
+				Range = 40,
+				Resist = false,
+				Break = true
+			},
+			Death = {
+				Type = "Guiding",
+				Hints = {"BOB"},
+				Cause = "Depth"
+			}
+		})
+
+		entity:Run()
+	end,
+
+	["A60"] = function(damage: boolean)
+		if damage == nil then damage = true end
+		local entity = Spawner.Create({
+			Entity = {
+				Name = "Speedster",
+				Asset = Path .. "a60" .. ".rbxm",
+				HeightOffset = 1.5
+			},
+			Lights = {
+				Flicker = {
+					Enabled = true,
+					Duration = 1.5
+				},
+				Shatter = true,
+				Repair = false
+			},
+			Earthquake = {
+				Enabled = false
+			},
+			CameraShake = {
+				Enabled = false,
+				Range = 100,
+				Values = {5, 15, 0.1, 1}
+			},
+			Movement = {
+				Speed = 500,
+				Delay = 2,
+				Reversed = false
+			},
+			Rebounding = {
+				Enabled = false,
+				Type = "Ambush",
+				Min = 1,
+				Max = 1,
+				Delay = 1
+			},
+			Damage = {
+				Enabled = damage,
+				Range = 40,
+				Amount = 100
+			},
+			Crucifixion = {
+				Enabled = false,
+				Range = 40,
+				Resist = false,
+				Break = true
+			},
+			Death = {
+				Type = "Guiding",
+				Hints = {"bob"},
+				Cause = "Speedster"
+			}
+		})
+
+		entity:Run()
+	end,
+
+	["ReverseEyes"] = function(damage: boolean)
+		if damage == nil then damage = true end
+		if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
+		local currentroom = getCurrentRoom(false)
+		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
+		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm") --LoadCustomInstance("rbxassetid://121824133881470")
+		--print("loaded")
+		task.wait(0.5)
+		entity.Parent = workspace
+		--print("parented")
+		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 7.5, 0)
+		--print("positioned")
+		local active = true
+		LatestRoom.Changed:Once(function()
+			active = false
+		end)
+		while active do
+			local isOnScreen = select(2, camera:WorldToViewportPoint(entity:FindFirstChildWhichIsA("BasePart").Position));
+			if not isOnScreen then
+				if damage then
+					DamageAPlayer(5, "Reverse Eyes", {"BOBIK"})
+				end
+			end
+			task.wait(0.25)
+		end
+		entity:Destroy()
+	end,
+
+	["Hunger"] = function(damage: boolean)
+		if damage == nil then damage = true end
+		if workspace:FindFirstChild("Hunger") or game.ReplicatedStorage:FindFirstChild("Hunger") then return end
+		-- if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
+		local currentroom = getCurrentRoom(false)
+		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
+		local entity:Model = LoadCustomInstance(Path .. "hunger" .. ".rbxm")
+		task.wait(0.5)
+		entity.Parent = game.ReplicatedStorage
+		entity.Name = "Hunger"
+		entity.SoundGroup.SpawnSound:Play()
+		task.wait(17)
+		for i, v in pairs(currentroom:GetDescendants()) do
+			if v:IsA("Light") then
+				v.Enabled = false
+			end
+		end
+		currentroom = workspace.CurrentRooms:FindFirstChild(tostring(LatestRoom.Value))
+		center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
+		entity.Parent = workspace
+		entity:FindFirstChildWhichIsA("BasePart").Position = center.Position + Vector3.new(0, 6, 0)
+		entity.SoundGroup.Thud:Play()
+		entity:FindFirstChildWhichIsA("BasePart").Ambience.Playing = true
+		task.wait(0.5)
+
+		local active = true
+		LatestRoom.Changed:Once(function()
+			if not entity then return end
+			active = false
+		end)
+		while active do
+			task.wait(0.1)
+			local isOnScreen = select(2, camera:WorldToViewportPoint(entity:FindFirstChildWhichIsA("BasePart").Position));
+			if isOnScreen then
+				entity.SoundGroup.ThudLoud:Play()
+				entity.SoundGroup.Attack:Play()
+				if damage then
+					DamageAPlayer(90, "Hunger", {"Test BOB"})
+				end
+				active = false
+			end
+		end
+		entity:FindFirstChildWhichIsA("BasePart").Ambience.Playing = false
+		entity.Parent = game.ReplicatedStorage
+		for i, v in pairs(currentroom:GetDescendants()) do
+			if v:IsA("Light") then
+				v.Enabled = true
+			end
+		end
+		task.wait(1)
+		entity:Destroy()
+	end,
+	
+	["CommonSense"] = function()
+		if LatestRoom.Value ~= 50 then return end
+		local CurrentRoom: Model = getCurrentRoom(true)
+		task.wait(2)
+		local WaypointsModel = LoadCustomInstance(Path .. "LibraryWaypoints" .. ".rbxm")
+		WaypointsModel:PivotTo(CurrentRoom.RoomEntrance.CFrame)
+		task.spawn(flickerLights, 10)
+		task.wait(10)
+		moduleScripts.Module_Events.shatter(CurrentRoom)
+		local CommonSense = LoadCustomInstance(Path .. "commonSense" .. ".rbxm")
+		local currentTween = nil
+		local tws = game:GetService("TweenService")
+		local info = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false)
+		local Waypoints: Folder = WaypointsModel.Waypoints
+		local CommonSensePart: BasePart = CommonSense:FindFirstChildWhichIsA("BasePart")
+		
+		CommonSensePart.Position = Waypoints["1"].Position
+		local active = true
+		
+		CommonSensePart.Touched:Connect(function(part)
+			if part.Parent == Player.Character then
+				DamageAPlayer(100, "Common Sense", {"BOBIIIIK"})
+			end
+		end)
+		
+		LatestRoom.Changed:Once(function()
+			active = false
+		end)
+		
+		while active do
+			for index, waypoint in pairs(Waypoints:GetChildren()) do
+				currentTween = tws:Create(CommonSensePart, info, {Position = waypoint.Position})
+				currentTween:Play()
+				currentTween.Completed:Wait()
+			end
+		end
+		
+		if currentTween then currentTween:Cancel() end
+		CommonSense:Destroy()
+		
+	end,
+}
+
+local weightedFunctions = {
+	{func = entities.Depth, weight = 10},
+	{func = entities.A60, weight = 5},
+	{func = entities.ReverseEyes, weight = 7},
+	{func = entities.Hunger, weight = 3},
+}
+
+local totalWeight = 0
+for _, entry in weightedFunctions do
+	totalWeight += entry.weight
+end
+
+local function doorOpened()
+	local roll = math.random(1, 100)
+
+	if roll <= totalWeight then
+		local cumulative = 0
+		local selectedRoll = math.random(totalWeight)
+
+		for _, entry in weightedFunctions do
+			cumulative += entry.weight
+			if selectedRoll <= cumulative then
+				entry.func()
+				break
+			end
+		end
+	end
+end
+
+game.Lighting:FindFirstChildWhichIsA("Sky"):Destroy()
+
+local Sky = Instance.new("Sky")
+Sky.StarCount = 500
+Sky.SkyboxUp = "rbxassetid://2673271464"
+Sky.MoonTextureId = "rbxassetid://1075087760"
+Sky.SkyboxBk = "rbxassetid://2673271663"
+Sky.CelestialBodiesShown = false
+Sky.SkyboxDn = "rbxassetid://2673271148"
+Sky.SkyboxLf = "rbxassetid://2673270998"
+Sky.SunTextureId = "rbxassetid://1084351190"
+Sky.SunAngularSize = 12
+Sky.SkyboxFt = "rbxassetid://2673271285"
+Sky.SkyboxRt = "rbxassetid://2673271813"
+Sky.MoonAngularSize = 1.5
+Sky.Parent = game:GetService("Lighting")
+
+local ColorCorrectionMode = Instance.new("ColorCorrectionEffect")
+ColorCorrectionMode.Name = "ColorCorrectionMode"
+ColorCorrectionMode.Saturation = -0.02500000037252903
+ColorCorrectionMode.Contrast = 0.20000000298023224
+ColorCorrectionMode.TintColor = Color3.new(1.00, 0.92, 0.80)
+ColorCorrectionMode.Brightness = -0.10000000149011612
+ColorCorrectionMode.Parent = game:GetService("Lighting")
+
+local BloomMode = Instance.new("BloomEffect")
+BloomMode.Name = "BloomMode"
+BloomMode.Threshold = 2
+BloomMode.Intensity = 1
+BloomMode.Size = 34
+BloomMode.Parent = game:GetService("Lighting")
+
+local msg = Instance.new("Message")  
+msg.Parent = game.Workspace     
+msg.Text = "Loaded"
+task.wait(1)
+msg:Destroy()
+
+repeat wait() until LatestRoom.Value >= 1
+
+local msg = Instance.new("Hint")  
+msg.Parent = game.Workspace     
+msg.Text = "Activated"
+task.wait(1)
+msg:Destroy()
+
+LatestRoom.Changed:Connect(function()
+	if math.random(1,2) == 1 and LatestRoom.Value ~= 50 then
+		doorOpened()
+	else
+		entities.CommonSense()
+	end
+end)
+
+
+
+while task.wait(35) do --35
+	doorOpened()
+end
