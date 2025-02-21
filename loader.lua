@@ -265,6 +265,7 @@ local entities = {
 		local CurrentRoom: Model = getCurrentRoom(true)
 		task.wait(2)
 		local WaypointsModel = LoadCustomInstance(Path .. "LibraryWaypoints" .. ".rbxm")
+		WaypointsModel.Parent = workspace
 		WaypointsModel:PivotTo(CurrentRoom.RoomEntrance.CFrame)
 		for i, v in pairs(WaypointsModel.Waypoints:GetChildren()) do
 			v.Transparency = 0.5
