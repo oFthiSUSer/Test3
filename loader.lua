@@ -266,10 +266,18 @@ local entities = {
 		task.wait(2)
 		local WaypointsModel = LoadCustomInstance(Path .. "LibraryWaypoints" .. ".rbxm")
 		WaypointsModel:PivotTo(CurrentRoom.RoomEntrance.CFrame)
-		task.spawn(flickerLights, 10)
+		for i, v in pairs(WaypointsModel.Waypoints:GetChildren()) do
+			v.Transparency = 0.5
+		end
 		task.wait(10)
-		moduleScripts.Module_Events.shatter(CurrentRoom)
+		print("Loading common")
+		for i, v in pairs(CurrentRoom:GetDescendants()) do
+			if v:IsA("Light") then
+				v.Enabled = false
+			end
+		end
 		local CommonSense = LoadCustomInstance(Path .. "commonSense" .. ".rbxm")
+		CommonSense.Parent = workspace
 		local currentTween = nil
 		local tws = game:GetService("TweenService")
 		local info = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false)
@@ -286,6 +294,7 @@ local entities = {
 		end)
 		
 		LatestRoom.Changed:Once(function()
+			print('Changed')
 			active = false
 		end)
 		
@@ -293,6 +302,7 @@ local entities = {
 			for index, waypoint in pairs(Waypoints:GetChildren()) do
 				currentTween = tws:Create(CommonSensePart, info, {Position = waypoint.Position})
 				currentTween:Play()
+				print("tween")
 				currentTween.Completed:Wait()
 			end
 		end
