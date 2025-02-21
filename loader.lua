@@ -182,7 +182,7 @@ local entities = {
 	["ReverseEyes"] = function(damage: boolean)
 		if damage == nil then damage = true end
 		if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
-		local currentroom = getCurrentRoom(false)
+		local currentroom = workspace.CurrentRooms[tostring(LatestRoom.Value)]
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		local entity:Model = LoadCustomInstance(Path .. "reverseEyes" .. ".rbxm") --LoadCustomInstance("rbxassetid://121824133881470")
 		--print("loaded")
@@ -211,7 +211,7 @@ local entities = {
 		if damage == nil then damage = true end
 		if workspace:FindFirstChild("Hunger") or game.ReplicatedStorage:FindFirstChild("Hunger") then return end
 		-- if LatestRoom.Value == 50 or LatestRoom.Value == 100 then return end
-		local currentroom = getCurrentRoom(false)
+		local currentroom = workspace.CurrentRooms[tostring(LatestRoom.Value)]
 		local center = currentroom:FindFirstChild(tostring(LatestRoom.Value))
 		local entity:Model = LoadCustomInstance(Path .. "hunger" .. ".rbxm")
 		task.wait(0.5)
@@ -262,11 +262,12 @@ local entities = {
 	
 	["CommonSense"] = function()
 		if LatestRoom.Value ~= 50 then return end
-		local CurrentRoom: Model = getCurrentRoom(true)
+		local CurrentRoom: Model = workspace.CurrentRooms[tostring(LatestRoom.Value)]
 		task.wait(2)
 		local WaypointsModel = LoadCustomInstance(Path .. "LibraryWaypoints" .. ".rbxm")
 		WaypointsModel.Parent = workspace
-		WaypointsModel:PivotTo(CurrentRoom.RoomEntrance.CFrame)
+		WaypointsModel.PrimaryPart = WaypointsModel.RoomEntrance
+		WaypointsModel:PivotTo(CurrentRoom.PrimaryPart.CFrame)
 		for i, v in pairs(WaypointsModel.Waypoints:GetChildren()) do
 			v.Transparency = 0.5
 		end
@@ -281,7 +282,7 @@ local entities = {
 		CommonSense.Parent = workspace
 		local currentTween = nil
 		local tws = game:GetService("TweenService")
-		local info = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false)
+		local info = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false)
 		local Waypoints: Folder = WaypointsModel.Waypoints
 		local CommonSensePart: BasePart = CommonSense:FindFirstChildWhichIsA("BasePart")
 		
